@@ -1,0 +1,10 @@
+CREATE DATABASE IF NOT EXISTS olist_kpi_engine;
+USE olist_kpi_engine;
+
+SHOW TABLES;
+
+SELECT COUNT(*) AS orders_count FROM orders;
+SELECT COUNT(*) AS order_items_count FROM order_items;
+SELECT COUNT(*) AS payments_count FROM payments;
+SELECT COUNT(*) AS customers_count FROM customers;
+SELECT COUNT(*) AS reviews_count FROM reviews;
