@@ -175,25 +175,3 @@ python src/load_to_mysql.py
 python src/run_quality_checks.py
 python src/generate_kpi_excel_report.py
 python src/create_charts.py
-
----
-
-##📌 Why This Project Matters
-
-This project demonstrates:
-
-✔ SQL + Python integration
-✔ Data quality-first mindset
-✔ Real-world pipeline design
-✔ Business-focused analytics
-✔ Automated reporting
-
-
----
-
-# 🚀 Step 4: Save file
-
-Press:
-
-```text
-Ctrl + S
