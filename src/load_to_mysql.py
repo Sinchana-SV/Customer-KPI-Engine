@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.engine import URL
 
@@ -7,14 +8,15 @@ from sqlalchemy.engine import URL
 # 1. CONFIGURATION
 # -----------------------------
 
+load_dotenv()
+
 RAW_DATA_PATH = "data/raw"
 
-MYSQL_USER = "root"
-MYSQL_PASSWORD = "Sinchana@21"
-MYSQL_HOST = "localhost"
-MYSQL_PORT = "3306"
-MYSQL_DATABASE = "olist_kpi_engine"
-
+MYSQL_USER = os.getenv("MYSQL_USER")
+MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
+MYSQL_HOST = os.getenv("MYSQL_HOST")
+MYSQL_PORT = os.getenv("MYSQL_PORT")
+MYSQL_DATABASE = os.getenv("MYSQL_DATABASE")
 
 connection_url = URL.create(
     drivername="mysql+pymysql",
@@ -43,25 +45,29 @@ TABLES = {
 # 2. LOAD CSV FILES INTO MYSQL
 # -----------------------------
 
-for file_name, table_name in TABLES.items():
-    file_path = os.path.join(RAW_DATA_PATH, file_name)
+def load_csv_files():
+    for file_name, table_name in TABLES.items():
+        file_path = os.path.join(RAW_DATA_PATH, file_name)
 
-    if not os.path.exists(file_path):
-        print(f"Missing file: {file_name}")
-        continue
+        if not os.path.exists(file_path):
+            print(f"Missing file: {file_name}")
+            continue
 
-    print(f"Loading {file_name} into MySQL table: {table_name}")
+        print(f"Loading {file_name} into MySQL table: {table_name}")
 
-    df = pd.read_csv(file_path)
+        df = pd.read_csv(file_path)
 
-    df.to_sql(
-        name=table_name,
-        con=engine,
-        if_exists="replace",
-        index=False,
-        chunksize=5000
-    )
+        df.to_sql(
+            name=table_name,
+            con=engine,
+            if_exists="replace",
+            index=False,
+            chunksize=5000
+        )
 
-    print(f"Loaded {len(df):,} rows into {table_name}")
+        print(f"Loaded {len(df):,} rows into {table_name}")
 
-print("All files loaded into MySQL successfully.")
+    print("All files loaded into MySQL successfully.")
+
+if __name__ == "__main__":
+    load_csv_files()
