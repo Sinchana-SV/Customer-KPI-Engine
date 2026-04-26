@@ -12,8 +12,6 @@ data/exports/*
 !data/processed/.gitkeep
 !data/exports/.gitkeep
 
-outputs/charts/
-outputs/reports/
 
 .ipynb_checkpoints/
 .DS_Store

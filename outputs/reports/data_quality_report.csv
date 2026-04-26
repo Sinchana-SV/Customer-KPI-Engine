@@ -1,0 +1,11 @@
+check_name,issue_count,status
+Duplicate order_id in orders,0,PASS
+Missing customer_id in orders,0,PASS
+Orders without payment record,1,FAIL
+Orders without customer record,0,PASS
+Negative payment values,0,PASS
+Order items without product_id,0,PASS
+Delivered date before purchase date,0,PASS
+Missing review scores,0,PASS
+Negative item prices,0,PASS
+Negative freight values,0,PASS
